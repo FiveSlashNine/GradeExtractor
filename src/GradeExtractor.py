@@ -114,7 +114,7 @@ def get_column(table, is_pdf=False, lang="en"):
 
 def analyze_grades(table, column, thresshold, is_pdf=False):    
     if is_pdf:
-        values = table.iloc[:, column].astype(str).str.replace(r"[^\d.]", "", regex=True)
+        values = (table.iloc[:, column].astype(str).str.replace(",", ".", regex=False).str.replace(r"[^\d.]", "", regex=True))
         values = pd.to_numeric(values, errors='coerce').dropna()
     else:
         values = pd.to_numeric(table[column], errors='coerce').dropna()
